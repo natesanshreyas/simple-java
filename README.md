@@ -39,7 +39,7 @@ OpenJDK 64-Bit Server VM Zulu11.56+19-CA (build 11.0.15+10-LTS, mixed mode)
 - `mvn.sh` to avoid polluting my PATH
 
 ```shell
-$ ./mvn.sh -v
+$ path/to/java/apache-maven-3.9.6/bin/mvn -v
 Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
 Maven home: /home/antoines/java/apache-maven-3.9.6
 Java version: 11.0.15, vendor: Azul Systems, Inc., runtime: /home/antoines/.cache/asbazel/output/external/remotejdk11_linux
