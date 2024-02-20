@@ -4,6 +4,10 @@ This is a directory containing a few java projects. The goal is to figure out ho
 
 ## Which projects?
 
+- [pure-java-rest-api](https://github.com/piczmar/pure-java-rest-api)
+  - not a spring or spring boot proejct
+  - uses java 11
+
 - [FizzBuzzEnterpriseEdition](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition)
   - uses the spring framework (not spring boot)
   - uses java 7
