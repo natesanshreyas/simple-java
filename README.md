@@ -5,6 +5,7 @@ This is a directory containing a few java projects. The goal is to figure out ho
 Findings:
 
 - `javax.annotations` was removed between java 7 and 11
+- gradle not handled in this project
 
 ## Which projects?
 
