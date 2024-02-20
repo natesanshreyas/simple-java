@@ -6,6 +6,10 @@ Findings:
 
 - `javax.annotations` was removed between java 7 and 11
 - gradle not handled in this project
+- `mvn` will download each dependency and keep a cached copy under `~/.m2/repository`
+  - deleting that directory will force maven to re-download everything
+  - even the simplest project (`pure-java-rest-api`) downloads hundreds of dependency jars
+  - so publishing one ingredient for each might be untenable
 
 ## Which projects?
 
