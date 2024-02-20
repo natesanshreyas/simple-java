@@ -35,4 +35,15 @@ OpenJDK 64-Bit Server VM Zulu11.56+19-CA (build 11.0.15+10-LTS, mixed mode)
 ## Which mvn?
 
 - Downloaded file [apache-maven-3.9.6-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz)
-- Installed using: `tar xzvf apache-maven-3.9.6-bin.tar.gz`
+- Installed using: `tar xzvf apache-maven-3.9.6-bin.tar.gz` ([Installation instructions](https://maven.apache.org/install.html))
+- `mvn.sh` to avoid polluting my PATH
+
+```shell
+$ ./mvn.sh -v
+Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+Maven home: /home/antoines/java/apache-maven-3.9.6
+Java version: 11.0.15, vendor: Azul Systems, Inc., runtime: /home/antoines/.cache/asbazel/output/external/remotejdk11_linux
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "5.15.133.1-microsoft-standard-wsl2", arch: "amd64", family: "unix"
+
+```
