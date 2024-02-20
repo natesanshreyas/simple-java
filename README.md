@@ -5,6 +5,7 @@ This is a directory containing a few java projects. The goal is to figure out ho
 Findings:
 
 - `javax.annotations` was removed between java 7 and 11
+- `pure-java-rest-api` has two `jackson` dependencies that allow for dependency hell
 - gradle not handled in this project
 - `mvn` will download each dependency and keep a cached copy under `~/.m2/repository`
   - deleting that directory will force maven to re-download everything
@@ -104,6 +105,48 @@ The final `Hello World!` was added by me as the first line in `Application.java`
 1) You cannot `mvn exec:java` if it's not already compiled. There is a way make maven automatically compile before `exec:java`, but that involves further modifying the pom.xml.
 2) You can do `mvn clean` to delete the `target` folder (where compiled things go)
 3) You can do `mvn clean compile` to force a complete rebuild (it's like doing `mvn clean` followed by `mvn compile`)
+
+## Dependency hell
+
+In `pom.xml`, replacing `jackson-annotations`'s version from `2.9.7` to `2.0.0` will still compile (maven doesn't solve dependencies), but produce a runtime error:
+
+```shell
+Hello World!
+[WARNING]
+java.lang.reflect.InvocationTargetException
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.mojo.exec.ExecJavaMojo$1.run (ExecJavaMojo.java:293)
+    at java.lang.Thread.run (Thread.java:829)
+Caused by: java.lang.NoClassDefFoundError: com/fasterxml/jackson/annotation/JsonMerge
+    at com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector.<clinit> (JacksonAnnotationIntrospector.java:50)
+    at com.fasterxml.jackson.databind.ObjectMapper.<clinit> (ObjectMapper.java:291)
+    at com.consulner.app.Configuration.<clinit> (Configuration.java:11)
+    at com.consulner.app.Application.main (Application.java:27)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.mojo.exec.ExecJavaMojo$1.run (ExecJavaMojo.java:293)
+    at java.lang.Thread.run (Thread.java:829)
+Caused by: java.lang.ClassNotFoundException: com.fasterxml.jackson.annotation.JsonMerge
+    at java.net.URLClassLoader.findClass (URLClassLoader.java:476)
+    at java.lang.ClassLoader.loadClass (ClassLoader.java:589)
+    at java.lang.ClassLoader.loadClass (ClassLoader.java:522)
+    at com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector.<clinit> (JacksonAnnotationIntrospector.java:50)
+    at com.fasterxml.jackson.databind.ObjectMapper.<clinit> (ObjectMapper.java:291)
+    at com.consulner.app.Configuration.<clinit> (Configuration.java:11)
+    at com.consulner.app.Application.main (Application.java:27)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.mojo.exec.ExecJavaMojo$1.run (ExecJavaMojo.java:293)
+    at java.lang.Thread.run (Thread.java:829)
+```
+
 
 ## Compile failure (FizzBuzzEnterpriseEdition)
 
