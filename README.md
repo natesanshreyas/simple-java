@@ -29,14 +29,12 @@ $ java --version
 openjdk 11.0.15 2022-04-19 LTS
 OpenJDK Runtime Environment Zulu11.56+19-CA (build 11.0.15+10-LTS)
 OpenJDK 64-Bit Server VM Zulu11.56+19-CA (build 11.0.15+10-LTS, mixed mode)
-
 ```
 
 ## Which mvn?
 
 - Downloaded file [apache-maven-3.9.6-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz)
 - Installed using: `tar xzvf apache-maven-3.9.6-bin.tar.gz` ([Installation instructions](https://maven.apache.org/install.html))
-- `mvn.sh` to avoid polluting my PATH
 
 ```shell
 $ path/to/java/apache-maven-3.9.6/bin/mvn -v
@@ -45,7 +43,6 @@ Maven home: /home/antoines/java/apache-maven-3.9.6
 Java version: 11.0.15, vendor: Azul Systems, Inc., runtime: /home/antoines/.cache/asbazel/output/external/remotejdk11_linux
 Default locale: en, platform encoding: UTF-8
 OS name: "linux", version: "5.15.133.1-microsoft-standard-wsl2", arch: "amd64", family: "unix"
-
 ```
 
 ## mvn exec (pure-java-rest-api)
@@ -74,7 +71,6 @@ $ ../apache-maven-3.9.6/bin/mvn compile
 [INFO] Total time:  0.519 s
 [INFO] Finished at: 2024-02-20T13:40:08-05:00
 [INFO] ------------------------------------------------------------------------
-
 ```
 
 The first time you run the above it will produce tons of download output. Then run the compiled server by doing:
@@ -90,7 +86,6 @@ $ ../apache-maven-3.9.6/bin/mvn exec:java
 [INFO]
 [INFO] --- exec:1.4.0:java (default-cli) @ pure-java-rest-api ---
 Hello World!
-
 ```
 
 The final `Hello World!` was added by me as the first line in `Application.java` (to ensure that I am indeed compiling the right thing). You can call the rest API by doing a `GET` on `localhost:8000/api/hello`, passing `admin`/`admin` in a basic authentication (otherwise it returns a 401).
