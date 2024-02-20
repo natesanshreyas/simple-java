@@ -19,6 +19,8 @@ import com.sun.net.httpserver.HttpServer;
 class Application {
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Hello World!");
+
         int serverPort = 8000;
         HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
 
