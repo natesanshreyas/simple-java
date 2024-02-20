@@ -151,4 +151,8 @@ $ ../apache-maven-3.9.6/bin/mvn compile
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 ```
 
-Both of these errors are related to the fact that `javax.annotations` is not found. Could this be because we're using `openJDK 11`, and the project expects `java 11`?
+Q: Both of these errors are related to the fact that `javax.annotations` is not found. Could this be because we're using `openJDK 11`, and the project expects `java 11`?
+A: `javax.annotations` was REMOVED in `java 11`. It needs to be added manually to the project
+
+- [Maven Central](https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api/1.3.2)
+- After adding it explicitely to the pom.xml dependencies, the project compiles successfully
