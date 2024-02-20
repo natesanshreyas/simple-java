@@ -2,6 +2,10 @@
 
 This is a directory containing a few java projects. The goal is to figure out how to use the platform to improve java UX.
 
+Findings:
+
+- `javax.annotations` was removed between java 7 and 11
+
 ## Which projects?
 
 - [pure-java-rest-api](https://github.com/piczmar/pure-java-rest-api)
