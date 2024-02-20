@@ -95,12 +95,11 @@ Hello World!
 
 The final `Hello World!` was added by me as the first line in `Application.java` (to ensure that I am indeed compiling the right thing). You can do call the rest API it by doing a `GET` on `localhost:8000/api/hello`, passing `admin`/`admin` in a basic authentication (otherwise it returns a 401).
 
-### Notes:
+### Notes
 
 1) You cannot `mvn exec:java` if it's not already compiled. There is a way make maven automatically compile before `exec:java`, but that involves further modifying the pom.xml.
 2) You can do `mvn clean` to delete the `target` folder (where compiled things go)
 3) You can do `mvn clean compile` to force a complete rebuild (it's like doing `mvn clean` followed by `mvn compile`)
-
 
 ## Compile failure (FizzBuzzEnterpriseEdition)
 
