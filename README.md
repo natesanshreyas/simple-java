@@ -12,6 +12,8 @@ Findings:
   - even the simplest project (`pure-java-rest-api`) downloads hundreds of dependency jars
   - so publishing one ingredient for each might be untenable
 
+- spring boot projects have thousands of dependencies
+
 ## Which projects?
 
 - [pure-java-rest-api](https://github.com/piczmar/pure-java-rest-api)
@@ -147,10 +149,9 @@ Caused by: java.lang.ClassNotFoundException: com.fasterxml.jackson.annotation.Js
     at java.lang.Thread.run (Thread.java:829)
 ```
 
-
 ## Compile failure (FizzBuzzEnterpriseEdition)
 
-From the `FizzBuzzEnterpriseEdition$` folder, run:
+From the `FizzBuzzEnterpriseEdition` folder, run:
 
 ```shell
 $ ../apache-maven-3.9.6/bin/mvn compile
@@ -202,3 +203,57 @@ A: `javax.annotations` was REMOVED in `java 11`. It needs to be added manually t
 
 - [Maven Central](https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api/1.3.2)
 - After adding it explicitely to the pom.xml dependencies, the project compiles successfully
+
+## Compile failure (spring-boot-examples/spring-boot-2-rest-service-basic)
+
+From the `spring-boot-examples/spring-boot-2-rest-service-basic` folder, run:
+
+```shell
+$ ../../apache-maven-3.9.6/bin/mvn compile
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --< com.in28minutes.springboot.rest.example:spring-boot-2-rest-service-basic >--
+[INFO] Building spring-boot-2-rest-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ spring-boot-2-rest-service-basic ---
+[INFO] Copying 1 resource
+[INFO] Copying 2 resources
+[INFO]
+[INFO] --- compiler:3.10.1:compile (default-compile) @ spring-boot-2-rest-service-basic ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 5 source files to /home/antoines/java/spring-boot-examples/spring-boot-2-rest-service-basic/target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.006 s
+[INFO] Finished at: 2024-02-20T14:29:15-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project spring-boot-2-rest-service-basic: Fatal error compiling: error: invalid target release: 17 -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+```
+
+This failure is because `mvn` uses java 11, but the project to be compiled requires java 17. From the pom.xml:
+
+```xml
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+```
+
+output to `mvn -v`:
+
+```shell
+Java version: 11.0.15, vendor: Azul Systems, Inc., runtime: /home/antoines/.cache/asbazel/output/external/remotejdk11_linux
+```
+
+I don't really want to mess with java versions on my machine for this, but something to try would be to:
+
+1) Install java 17, ensure that `mvn` sees it (as per `mvn -v`)
+2) Re-compile the spring boot example project, and see if it resolves the issue
