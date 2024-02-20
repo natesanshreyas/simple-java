@@ -48,7 +48,7 @@ OS name: "linux", version: "5.15.133.1-microsoft-standard-wsl2", arch: "amd64", 
 
 ```
 
-## mvn exec
+## mvn exec (pure-java-rest-api)
 
 I added the maven-exec-plugin so that I could run the `pure-java-rest-api` project, and validate that everything is on the classpath.
 From the `pure-java-rest-api` folder:
@@ -95,8 +95,60 @@ Hello World!
 
 The final `Hello World!` was added by me as the first line in `Application.java` (to ensure that I am indeed compiling the right thing). You can do call the rest API it by doing a `GET` on `localhost:8000/api/hello`, passing `admin`/`admin` in a basic authentication (otherwise it returns a 401).
 
-## Notes:
+### Notes:
 
 1) You cannot `mvn exec:java` if it's not already compiled. There is a way make maven automatically compile before `exec:java`, but that involves further modifying the pom.xml.
 2) You can do `mvn clean` to delete the `target` folder (where compiled things go)
 3) You can do `mvn clean compile` to force a complete rebuild (it's like doing `mvn clean` followed by `mvn compile`)
+
+
+## Compile failure (FizzBuzzEnterpriseEdition)
+
+From the `FizzBuzzEnterpriseEdition$` folder, run:
+
+```shell
+$ ../apache-maven-3.9.6/bin/mvn compile
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --< com.seriouscompany.business.java.fizzbuzz:FizzBuzzEnterpriseEdition >--
+[INFO] Building FizzBuzz Enterprise Edition 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- jacoco:0.5.8.201207111220:prepare-agent (default) @ FizzBuzzEnterpriseEdition ---
+[INFO] argLine set to -javaagent:/home/antoines/.m2/repository/org/jacoco/org.jacoco.agent/0.5.8.201207111220/org.jacoco.agent-0.5.8.201207111220-runtime.jar=destfile=/home/antoines/java/FizzBuzzEnterpriseEdition/target/jacoco.exec
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ FizzBuzzEnterpriseEdition ---
+[INFO] Copying 1 resource from resources/assets/configuration/spring/dependencyinjection/configuration to target/classes
+[INFO]
+[INFO] --- compiler:2.3:compile (default-compile) @ FizzBuzzEnterpriseEdition ---
+[INFO] Compiling 87 source files to /home/antoines/java/FizzBuzzEnterpriseEdition/target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR :
+[INFO] -------------------------------------------------------------
+[ERROR] /home/antoines/java/FizzBuzzEnterpriseEdition/src/main/java/com/seriouscompany/business/java/fizzbuzz/packagenamingpackage/impl/math/arithmetics/NumberIsMultipleOfAnotherNumberVerifier.java:[4,23] error: package javax.annotation does not exist
+
+[ERROR] /home/antoines/java/FizzBuzzEnterpriseEdition/src/main/java/com/seriouscompany/business/java/fizzbuzz/packagenamingpackage/impl/math/arithmetics/NumberIsMultipleOfAnotherNumberVerifier.java:[26,2] error: cannot find symbol
+
+[INFO] 2 errors
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.458 s
+[INFO] Finished at: 2024-02-20T13:47:30-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:2.3:compile (default-compile) on project FizzBuzzEnterpriseEdition: Compilation failure: Compilation failure:
+[ERROR] /home/antoines/java/FizzBuzzEnterpriseEdition/src/main/java/com/seriouscompany/business/java/fizzbuzz/packagenamingpackage/impl/math/arithmetics/NumberIsMultipleOfAnotherNumberVerifier.java:[4,23] error: package javax.annotation does not exist
+[ERROR]
+[ERROR] /home/antoines/java/FizzBuzzEnterpriseEdition/src/main/java/com/seriouscompany/business/java/fizzbuzz/packagenamingpackage/impl/math/arithmetics/NumberIsMultipleOfAnotherNumberVerifier.java:[26,2] error: cannot find symbol
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+```
+
+Both of these errors are related to the fact that `javax.annotations` is not found. Could this be because we're using `openJDK 11`, and the project expects `java 11`?
