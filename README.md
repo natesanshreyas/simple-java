@@ -31,3 +31,8 @@ OpenJDK Runtime Environment Zulu11.56+19-CA (build 11.0.15+10-LTS)
 OpenJDK 64-Bit Server VM Zulu11.56+19-CA (build 11.0.15+10-LTS, mixed mode)
 
 ```
+
+## Which mvn?
+
+- Downloaded file [apache-maven-3.9.6-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz)
+- Installed using: `tar xzvf apache-maven-3.9.6-bin.tar.gz`
